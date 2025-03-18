@@ -1,6 +1,6 @@
 {
   "name": "supabase-updater",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "supabase-updater.mjs",
   "bin": {
     "supabase-updater": "supabase-updater.mjs"
