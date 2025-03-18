@@ -103,6 +103,7 @@ const main = async () => {
   if (!json) {
     throw new Error("Error: No json specified");
   }
+  const j = JSON.parse(json);
 
   // Create a Supabase client to execute the query
   const supabase = await createClient({
@@ -110,7 +111,7 @@ const main = async () => {
   });
 
   const result = await supabase.from(table)
-    .update(json)
+    .update(j)
     .eq('id', id);
   if (!result.error) {
     console.log(result.data);
