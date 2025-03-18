@@ -3,7 +3,6 @@
 import dotenv from 'dotenv';
 import { program } from 'commander';
 import { createServerClient } from '@supabase/ssr'
-import jwt from '@tsndr/cloudflare-worker-jwt';
 
 // Create a cookie store that mimics the next/headers cookies API
 class LocalCookieStore {
