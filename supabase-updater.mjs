@@ -84,6 +84,7 @@ const main = async () => {
     .argument("table", "Table to update")
     .argument("id", "ID of the row to update")
     .argument("json", "JSON to update the row with")
+    .argument("[condition]", "Optional condition in the format col=value")
     .parse(process.argv);
 
   const jwt = program.opts().jwt;
@@ -104,15 +105,22 @@ const main = async () => {
     throw new Error("Error: No json specified");
   }
   const j = JSON.parse(json);
+  const condition = program.args[3];
+  const conditionParts = condition ? condition.split('=') : null;
 
   // Create a Supabase client to execute the query
   const supabase = await createClient({
     jwt,
   });
 
-  const result = await supabase.from(table)
+  let query = supabase.from(table)
     .update(j)
     .eq('id', id);
+  if (conditionParts) {
+    query = query.eq(conditionParts[0], conditionParts[1]);
+  }
+
+  const result = await query;
   if (!result.error) {
     console.log(result.data);
   } else {
